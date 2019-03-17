@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>上传文章</title>
+    <!--浏览器图标-->
+    <link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+    <link rel="bookmark" th:href="@{/static/favicon.ico}"/>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"th:href="@{/static/css/bootstrap.min.css}">
+    <script src="js/jquery-2.1.3.min.js"th:src="@{/static/js/jquery-2.1.3.min.js}"></script>
+    <script src="js/bootstrap.min.js"th:src="@{/static/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+ <form action="upload" method="post">
+     <ul class="col-md-12">
+         <li>
+             <label>题目：</label><input type="text"class="form-control" name="title" minlength="2" placeholder="请输入文章的题目。。">
+         </li>
+         <li>
+             <label>种类：</label><input type="text"class="form-control" name="category"minlength="2" placeholder="请输入文章的种类。。">
+         </li>
+         <li>
+             <label>作者：</label><input type="text"class="form-control" name="author"minlength="2" placeholder="请输入文章的作者。。">
+         </li>
+         <li>
+             <label>内容：</label><textarea class="form-control" name="content"rows="18" minlength="200" placeholder="请输入文章。。"></textarea>
+         </li>
+         <li>
+             <input class="btn btn-info" type="submit" value="提交"><p th:text="${msg}"></p>
+         </li>
+     </ul>
+ </form>
+
+</body>
+</html>

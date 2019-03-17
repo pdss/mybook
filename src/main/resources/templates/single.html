@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${article.title}">罗涛</title>
+    <!--浏览器图标-->
+    <link rel="shortcut icon" th:href="@{/static/favicon.ico}"/>
+    <link rel="bookmark" th:href="@{/static/favicon.ico}"/>
+
+    <!-- meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"th:href="@{/static/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="css/pace.css"th:href="@{/static/css/pace.css}">
+    <link rel="stylesheet" href="css/custom.css"th:href="@{/static/css/custom.css}">
+
+    <!-- js -->
+    <script src="https://unpkg.com/ionicons@4.2.2/dist/ionicons.js"></script>
+
+    <script src="js/jquery-2.1.3.min.js"th:src="@{/static/js/jquery-2.1.3.min.js}"></script>
+    <script src="js/bootstrap.min.js"th:src="@{/static/js/bootstrap.min.js}"></script>
+    <script src="js/pace.min.js"th:src="@{/static/js/pace.min.js}"></script>
+    <script src="js/modernizr.custom.js"th:src="@{/static/js/modernizr.custom.js}"></script>
+</head>
+
+<body id="single">
+<div class="container">
+    <header id="site-header">
+        <div class="row">
+            <div class="col-md-4 col-sm-5 col-xs-8">
+                <div class="logo">
+                    <h1><a href="index.html"th:href="@{/index}"><b>🙃罗涛的博客</b></a></h1>
+                </div>
+            </div><!-- col-md-4 -->
+            <div class="col-md-8 col-sm-7 col-xs-4">
+                <nav class="main-nav" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" id="trigger-overlay" class="navbar-toggle">
+                            <span class="ion-navicon"></span>
+                        </button>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="cl-effect-11"><a href="index.html"th:href="@{/index}" data-hover="首页">首页</a></li>
+                            <li class="cl-effect-11"><a href="full-width.html"th:href="@{/full-width}" data-hover="SpringCloud">SpringCloud</a></li>
+                            <li class="cl-effect-11"><a href="about.html"th:href="@{/about}" data-hover="关于">关于</a></li>
+                            <li class="cl-effect-11"><a href="contact.html" th:href="@{/contact}"data-hover="联系">联系</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+                <div id="header-search-box">
+                    <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
+                    <div id="search-form" class="search-form">
+                        <form role="search" method="get" id="searchform" action="#">
+                            <input type="search" placeholder="搜索" required>
+                            <button type="submit"><span class="ion-ios-search-strong"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- col-md-8 -->
+        </div>
+    </header>
+</div>
+
+<div class="content-body">
+    <div class="container">
+        <div class="row">
+            <main class="col-md-12">
+                <article class="post post-1">
+                    <header class="entry-header">
+                        <h1 class="entry-title" th:text="${article.title}">标题</h1>
+                        <div class="entry-meta">
+                            <span class="post-category"><a href="#" th:text="${article.category}">种类</a></span>
+                            <span class="post-date"><a href="#"><time class="entry-date"
+                                                                      th:text="${#dates.format(article.createTime,'yyyy-MM-dd')}"></time></a></span>
+                            <span class="post-author"><a href="#"th:text="${article.author}">作者</a></span>
+                            <span class="comments-link"><a href="#" th:text="${article.commentNum}">4</a><a>评论</a></span>
+                            <span class="views-count"><a href="#"th:text="${article.readNum}">588</a><a>阅读</a></span>
+                        </div>
+                    </header>
+                    <div class="entry-content clearfix">
+                        <pre style="white-space:pre-wrap;font-size: 14px"  th:text="${article.content}">
+                            阅读
+                        </pre>
+                    </div>
+                </article>
+                <section class="comment-area" id="comment-area">
+                    <hr>
+                    <h3>发表评论</h3>
+                    <!--<form class="comment-form">-->
+                        <div class="row">
+                            <input type="hidden" th:value="${article.id}" id="articleId">
+                            <div class="col-md-12">
+                                <ul style="list-style-type: none">
+                                    <li><label for="id_comment">评论：</label></li>
+                                    <li>
+                                        <textarea name="commentContent" id="id_comment" required  rows="5" class="col-md-12"></textarea>
+                                    </li>
+                                    <li>
+                                        <button id="pushButton" class="btn btn-primary">发表</button>
+                                    </li>
+                                </ul>
+                                <!--<label for="id_comment">评论：</label>-->
+                                <!--<textarea name="commentContent" id="id_comment" required ></textarea>-->
+
+                                <!--<button id="pushButton">发表</button>-->
+                            </div>
+                        </div>    <!-- row -->
+                    <!--</form>-->
+                    <div class="comment-list-panel">
+                        <h3>评论列表，共 <span th:text="${newComments.getTotal()}">4</span> 条评论</h3>
+                        <h4><strong>热门评论</strong></h4>
+                        <hr/>
+                        <ul class="comment-list list-unstyled">
+                            <li class="comment-item row" th:each="hotComment:${hotComments}">
+                                <time class="submit-date" th:text="${#dates.format(hotComment.createTime,'yyyy-MM-dd hh:mm')}"></time>
+                                <p style="word-wrap: break-word;" class="col-md-10" th:text="${hotComment.content}">
+                                    评价
+                                </p>
+                                <a th:id="${'star'+hotComment.id}" href="#2" class="col-md-2">
+                                    <ion-icon th:id="${'starOutline'+hotComment.id}" name="star-outline"style="font-size: 20px" ></ion-icon>
+                                    <span th:id="${'comStar'+hotComment.id}"th:text="${hotComment.star}"></span></a>
+                            </li>
+                        </ul>
+                        <hr/>
+                        <h4><strong>最新评论</strong></h4>
+                        <hr/>
+                        <ul class="comment-list list-unstyled">
+                            <li class="comment-item row" th:each="newComment:${newComments}">
+                                <time class="submit-date" th:text="${#dates.format(newComment.createTime,'yyyy-MM-dd hh:mm')}"></time>
+                                <p style="word-wrap: break-word;" class="col-md-10" th:text="${newComment.content}">
+                                    评价
+                                </p>
+                                <a th:id="${'star'+newComment.id}" href="#2" class="col-md-2">
+                                    <ion-icon th:id="${'starOutline'+newComment.id}" name="star-outline"style="font-size: 20px" ></ion-icon>
+                                    <span th:id="${'comStar'+newComment.id}"th:text="${newComment.star}"></span></a>
+                            </li>
+                        </ul>
+                        <ul class="pagination pull-right">
+                            <li><a href="javascript:return false;" style="opacity: 0.2" th:if="${newComments.getPageNum()} eq '1'">上一页</a></li>
+                            <li><a href="#" th:if="${newComments.getPageNum()} ne '1'" th:href="@{'/single?id='+${article.id}+'&pageNum='+${newComments.getPageNum()-1}}">上一页</a></li>
+
+
+                            <li th:each="i:${#numbers.sequence(1,newComments.getPages())}">
+                                <a th:if="${newComments.getPageNum()} ne ${i}" th:href="@{'/single?id='+${article.id}+'&pageNum='+${i}}" th:text="${i}">1</a>
+                                <a th:if="${newComments.getPageNum()} eq ${i}" href="javascript:return false;" style="opacity: 0.2" th:text="${i}">1</a>
+                            </li>
+
+                            <li><a href="javascript:return false;" style="opacity: 0.2" th:if="${newComments.getPageNum()} eq ${newComments.getPages()}">上一页</a></li>
+                            <li><a href="#"th:if="${newComments.getPageNum()} ne ${newComments.getPages()}" th:href="@{'/single?id='+${article.id}+'&pageNum='+${newComments.getPageNum()+1}}">下一页</a></li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+</div>
+<footer id="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="copyright">&copy; 2018 luotao.wang
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Mobile Menu -->
+<div class="overlay overlay-hugeinc">
+    <button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
+    <nav>
+        <ul>
+            <li><a href="index.html"th:href="@{/index}">首页</a></li>
+            <li><a href="full-width.html"th:href="@{/full-width}">SpringCloud</a></li>
+            <li><a href="about.html"th:href="@{/about}">关于</a></li>
+            <li><a href="contact.html"th:href="@{/contact}">联系</a></li>
+        </ul>
+    </nav>
+</div>
+<script th:src="@{/static/js/my.js}"></script>
+
+<script src="js/script.js" th:src="@{/static/js/script.js}"></script>
+
+</body>
+</html>
