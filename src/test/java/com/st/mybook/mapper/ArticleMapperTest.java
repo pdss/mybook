@@ -16,7 +16,7 @@ public class ArticleMapperTest {
     private ArticleMapper mapper;
     @Test
     public void test(){
-        System.out.println(mapper.getAllArticle());
+        //System.out.println(mapper.getAllArticle());
     }
 
 }

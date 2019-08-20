@@ -56,7 +56,7 @@ public class MainController {
                         @RequestParam(value = "pageSize" ,defaultValue = "5")Integer pageSize){
         PageHelper.startPage(pageNum, pageSize);
         Page<Article> articles = articleService.getAllArticle();
-        System.out.println(articles);
+        //System.out.println(articles);
         List<Article> hotArticles = articleService.getHotArticle();
         model.addAttribute("currentPage", pageNum);
         model.addAttribute("articles", articles);
@@ -76,7 +76,7 @@ public class MainController {
         List<Comment> hotComments = commentSevice.getComment(article.getId());
         PageHelper.startPage(pageNum, pageSize);
         Page<Comment> newComments = commentSevice.getNewComment(article.getId());
-        System.out.println(newComments);
+        //System.out.println(newComments);
         model.addAttribute("article", article);
         model.addAttribute("hotComments", hotComments);
         model.addAttribute("newComments", newComments);
@@ -105,7 +105,7 @@ public class MainController {
         Comment comment = commentSevice.getIdAndStar(id);
         comment.setStar(comment.getStar()+1);
         if(commentSevice.updateStar(comment)){
-            System.out.println("ok");
+            //System.out.println("ok");
         }
 
     }
@@ -116,7 +116,7 @@ public class MainController {
         Comment comment = commentSevice.getIdAndStar(id);
         comment.setStar(comment.getStar()-1);
         if(commentSevice.updateStar(comment)){
-            System.out.println("ok");
+            //System.out.println("ok");
         }
     }
     //发表评论
@@ -126,7 +126,7 @@ public class MainController {
         //Comment comment = new Comment();
 //        comment.setAId(id);
 //        comment.setContent(content);
-        System.out.println(comment);
+        //System.out.println(comment);
         Map<String,String> map = new HashMap<>();
         JsonResult result = new JsonResult();
         if(commentSevice.pushComment(comment)){
